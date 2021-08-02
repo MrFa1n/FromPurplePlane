@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\BooksModel;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class BooksController extends Controller
 {
@@ -15,7 +16,7 @@ class BooksController extends Controller
      */
     public function index()
     {
-        $books = BooksModel::all();
+        $books = DB::table('books_models')->orderBy('release_date', 'asc')->where('')->get();
 
         return view('books.index', compact('books'));
     }

@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/list_all','App\Http\Controllers\BooksApi@index_api');
+Route::post('/record_book','App\Http\Controllers\BooksApi@create_record_about_book');
+Route::delete('/delete/{id}','App\Http\Controllers\BooksApi@delete_book');
+Route::put('/update/{id}','App\Http\Controllers\BooksApi@update_book');
