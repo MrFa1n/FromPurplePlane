@@ -9,11 +9,26 @@ use Illuminate\Support\Facades\Validator;
 
 class BooksApi extends Controller
 {
-    public function index_api()
+    public function index_api(Request $request)
     {
-        $books = DB::table('books_models')->orderBy('release_date', 'asc')->get();
-        //$books = BooksModel::all();
+
+        $data = $request->all();
+        if ($data == NULL){
+            $book = BooksModel::all();
+            return response(['status' => 'ok', 'response' => ['books' => $book]]);
+        }
+        $paginate = $data['paginate'];
+        if ($paginate != NULL){    
+            $book = BooksModel::paginate($paginate);
+            return response(['status' => 'ok', 'response' => ['books' => $book]]);    
+        }
+        $column = $data['name_column'];
+        $param_filter = $data['param_filter'];
+        $value = $data['value'];
+        $paginate = $data['paginate'];
+        $books = BooksModel::where($column, $param_filter)->orderBy($value, 'asc')->paginate($paginate);
         return response(['status' => 'ok', 'response' => ['books' => $books]]);
+
     }
 
     public function create_record_about_book(Request $request)

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\BooksModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\Builder;
 
 class BooksController extends Controller
 {
@@ -16,7 +17,7 @@ class BooksController extends Controller
      */
     public function index()
     {
-        $books = DB::table('books_models')->orderBy('release_date', 'asc')->where('')->get();
+        $books = DB::table('books_models')->orderBy('release_date', 'asc')->get();
 
         return view('books.index', compact('books'));
     }
